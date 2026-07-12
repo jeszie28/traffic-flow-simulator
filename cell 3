@@ -1,0 +1,18 @@
+class Vehicle:
+    def __init__(self, position):
+        self.position = position
+        self.speed = random.randint(1, MAX_SPEED)
+
+    def move(self, occupied_positions, light_green):
+        next_position = self.position + self.speed
+
+        # Stop at red light
+        if USE_TRAFFIC_LIGHT:
+            if self.position < INTERSECTION <= next_position and not light_green:
+                next_position = INTERSECTION - 1
+
+        # Prevent collisions
+        while next_position in occupied_positions and next_position > self.position:
+            next_position -= 1
+
+        self.position = min(next_position, ROAD_LENGTH)
