@@ -1,0 +1,6 @@
+vehicles = []
+
+spacing = ROAD_LENGTH // NUM_VEHICLES
+
+for i in range(NUM_VEHICLES):
+    vehicles.append(Vehicle(i * spacing))
