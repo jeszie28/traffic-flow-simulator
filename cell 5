@@ -1,0 +1,38 @@
+fig, ax = plt.subplots(figsize=(10,2))
+
+def update(frame):
+
+    ax.clear()
+
+    cycle = GREEN_DURATION + RED_DURATION
+
+    if frame % cycle < GREEN_DURATION:
+        light_green = True
+        light_color = "green"
+    else:
+        light_green = False
+        light_color = "red"
+
+    occupied = set()
+
+    for vehicle in sorted(vehicles, key=lambda v: v.position):
+        vehicle.move(occupied, light_green)
+        occupied.add(vehicle.position)
+
+    ax.hlines(0, 0, ROAD_LENGTH, colors='black')
+
+    x = [v.position for v in vehicles]
+    y = [0] * len(vehicles)
+
+    ax.scatter(x, y, color='blue', s=80)
+
+    ax.axvline(INTERSECTION, color='gray', linestyle='--')
+
+    ax.scatter(INTERSECTION, 0.2, color=light_color, s=200)
+
+    ax.set_xlim(0, ROAD_LENGTH)
+    ax.set_ylim(-0.5, 0.5)
+
+    ax.set_title(f"Frame {frame} | Traffic Light: {light_color.upper()}")
+
+    ax.set_yticks([])
