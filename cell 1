@@ -1,0 +1,7 @@
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+import random
+
+# Display animations inside JupyterLab
+from IPython.display import HTML
+plt.rcParams["animation.html"] = "jshtml"
